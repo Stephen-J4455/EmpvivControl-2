@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Send Data to Firebase</title>
+        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-storage.js"></script>
+
+        <link rel="stylesheet" href="Inputstyle.css" />
+    </head>
+    <body>
+        <div class="notification">
+            <h2 class="noti-head">Notify</h2>
+            <div id="note" class="notification-info">
+                No Results Enter again
+            </div>
+            <div onclick="closeNotification()" class="close-note">Ok</div>
+        </div>
+        <!-- upload page -->
+        <div class="homepage-product-upload">
+            <div class="container">
+                <div id="uploadPage" class="pages opened">
+                    <nav onclick="openMenu()" class="ham-menu-container">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </nav>
+
+                    <div id="catLable" class="chosen-cat">TOP PICKS</div>
+                    <div class="nav-menu">
+                        <span onclick="topPicks()">TOP PICKS</span>
+                        <span onclick="popular()">POPULAR</span>
+                        <span onclick="poster()">POSTER</span>
+                        <span onclick="brand()">BRAND</span>
+                        <span onclick="newProducts()">NEW ARRIVALS</span>
+                        <!-- feed page upload  -->
+                        <span onclick="grocery()" id="grocery">GROCERY</span>
+                        <span onclick="phones()" id="phones"
+                            >PHONES & TABLETS</span
+                        >
+                        <span onclick="computing()" id="">COMPUTING</span>
+                        <span onclick="machinary()" id="">MACHINERIES</span>
+                        <span onclick="electronics()" id="">ELECTRONICS</span>
+                        <span onclick="fashion()" id="">FASHION</span>
+                        <span onclick="sports()" id="">SPORTS</span>
+                        <span onclick="gaming()" id="">GAMING</span>
+                        <span onclick="office()" id="">HOME & OFFICE</span>
+                        <span onclick="health()" id="">HEALTH AND BEAUTY</span>
+                        <span onclick="garden()" id=""
+                            >GARDEN AND OUTDOORS</span
+                        >
+                        <span onclick="music()" id="">MUSICAL INSTRUMENTS</span>
+                        <span onclick="misc()" id="">MISCELLANEOUS</span>
+                        <span onclick="books()" id="">BOOKS AND MOVIES</span>
+                        <span onclick="automobile()" id="">AUTOMOBILE</span>
+                    </div>
+
+                    <h1>Upload New Product</h1>
+                    <div class="form-group">
+                        <label for="productId">Product ID:</label>
+                        <span id="generatedProductId" class="product-id"></span>
+                        <div class="ref">
+                            Upload Reference :
+                            <span id="refValue" class="refValue"
+                                >TopPicks/products</span
+                            >
+                        </div>
+                    </div>
+                    <div id="imagePreviewMain" class="image-preview-main"></div>
+
+                    <form id="productForm">
+                        <div class="form-group">
+                            <label for="productImageMain" class="file-label"
+                                ><svg
+                                    viewBox="0 0 48 48"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="1.5em"
+                                    width="1.5em"
+                                >
+                                    <path
+                                        fill="currentColor"
+                                        d="M13.3 34.15h21.45q.5 0
+                                .7-.4.2-.4-.1-.8l-5.85-7.8q-.25-.3-.6-.3t-.6.3l-6
+                                7.75-4.05-5.55q-.25-.3-.6-.3t-.6.3l-4.3
+                                5.6q-.25.4-.075.8t.625.4ZM9 42q-1.2 0-2.1-.9Q6
+                                40.2 6 39V9q0-1.2.9-2.1Q7.8 6 9 6h30q1.2 0
+                                2.1.9.9.9.9 2.1v30q0 1.2-.9
+                                2.1-.9.9-2.1.9Zm0-3h30V9H9v30ZM9
+                                9v30V9Z"
+                                    /></svg
+                                >Main</label
+                            >
+                            <input
+                                type="file"
+                                id="productImageMain"
+                                name="productImageMain"
+                                accept="image/*"
+                                required
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productImage1" class="file-label"
+                                >Image 1</label
+                            >
+                            <input
+                                type="file"
+                                id="productImage1"
+                                name="productImage1"
+                                accept="image/*"
+                            />
+                            <div id="imagePreview1" class="image-preview"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="productImage2" class="file-label">
+                                Image 2</label
+                            >
+                            <input
+                                type="file"
+                                id="productImage2"
+                                name="productImage2"
+                                accept="image/*"
+                            />
+                            <div id="imagePreview2" class="image-preview"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="productImage3" class="file-label">
+                                Image 3</label
+                            >
+                            <input
+                                type="file"
+                                id="productImage3"
+                                name="productImage3"
+                                accept="image/*"
+                            />
+                            <div id="imagePreview3" class="image-preview"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="productImage4" class="file-label">
+                                Image 4</label
+                            >
+                            <input
+                                type="file"
+                                id="productImage4"
+                                name="productImage4"
+                                accept="image/*"
+                            />
+                            <div id="imagePreview4" class="image-preview"></div>
+                        </div>
+                        <div class="form-group">
+                            <input
+                                type="hidden"
+                                id="productId"
+                                name="productId"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="productName">Product Name:</label>
+                            <input
+                                type="text"
+                                id="productName"
+                                name="productName"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="productDescription"
+                                >Product Description:</label
+                            >
+                            <textarea
+                                id="productDescription"
+                                name="productDescription"
+                                required
+                            ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="costPrice">Cost Price:</label>
+                            <input
+                                type="number"
+                                id="costPrice"
+                                name="costPrice"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrice">Selling Price:</label>
+                            <input
+                                type="number"
+                                id="productPrice"
+                                name="productPrice"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="productColor">Color:</label>
+                            <input
+                                type="color"
+                                id="productColor"
+                                name="productColor"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="productSize">Size:</label>
+                            <input
+                                type="text"
+                                id="productSize"
+                                name="productSize"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="productSeller">Seller:</label>
+                            <input
+                                type="text"
+                                id="seller"
+                                name="productSize"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="additionalInfo"
+                                >Additional Information:</label
+                            >
+                            <textarea
+                                id="additionalInfo"
+                                name="additionalInfo"
+                            ></textarea>
+                        </div>
+                        <!-- progress-bar -->
+ <div id="progress-bar">
+        <div id="progress-bar-fill"></div>
+    </div>
+    <div id="progress-percentage">0%</div>
+    <div id="noteBox" style="display: none;">
+        <p id="notification"></p>
+    </div>
+                        <button
+                            type="submit"
+                            class="submit-button"
+                            onclick="upload()"
+                        >
+                            <svg
+                                viewBox="0 0 48 48"
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="1.5em"
+                                width="1.5em"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M12.5 40q-4.3 0-7.4-3.1Q2 33.8 2 29.5q0-3.9 2.475-6.875t6.375-3.575q1-4.85 4.7-7.925T24.1 8.05q5.65 0 9.475 4.075Q37.4 16.2 37.4 21.9v1.2q3.6-.1 6.1 2.325Q46 27.85 46 31.55q0 3.45-2.5 5.95T37.55 40H25.5q-1.2 0-2.1-.9-.9-.9-.9-2.1V24.1l-3.1 3.1q-.45.45-1.05.425-.6-.025-1.05-.475-.45-.45-.45-1.075T17.3 25l5.65-5.65q.25-.25.5-.35.25-.1.55-.1.3 0 .55.1.25.1.5.35l5.7 5.7q.45.45.45 1.05 0 .6-.45 1.05-.45.45-1.075.45t-1.075-.45l-3.1-3.05V37h12.05q2.25 0 3.85-1.6t1.6-3.85q0-2.25-1.6-3.85t-3.85-1.6H34.4v-4.2q0-4.45-3.025-7.65t-7.475-3.2q-4.45 0-7.5 3.2t-3.05 7.65h-.95q-3.1 0-5.25 2.175T5 29.45q0 3.1 2.2 5.325T12.5 37H18q.65 0 1.075.425.425.425.425 1.075 0 .65-.425 1.075Q18.65 40 18 40ZM24 25.5Z"
+                                /></svg
+                            >Upload Product
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- product page -->
+        <script src="Inputscript.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>
