@@ -361,7 +361,7 @@ function upload() {
             downloadURLs.forEach((url, index) => {
                 updates[`image${index + 1}`] = url;
             });
-            const sendRef = document.getElementById("refValue").value;
+            const sendRef = document.getElementById("refValue").innerText;
             // Push product data to database
             return database
                 .ref(`${sendRef}/${identification}`)
